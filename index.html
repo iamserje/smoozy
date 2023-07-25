@@ -7,6 +7,7 @@
    <link rel="stylesheet" href="css/normalize.css">
    <link rel="stylesheet" href="css/style.css">
    <link rel="icon" typ="image/svg+xml" href="favicon.svg">
+   <script src="js/script.js" defer></script>
    <title>Smoozy</title>
 </head>
 <body>
@@ -57,7 +58,7 @@
                      </div>
                   </article>
                </li>
-               <li class="goods__item">
+               <!-- <li class="goods__item">
                   <article class="goods__card coktail">
                      <img class="goods__img" src="images/strawberry.jpg" alt="coktail klu">
                      <div class="coktail__content">
@@ -147,7 +148,7 @@
                         <button class="btn coktail__btn">В корзине</button>
                      </div>
                   </article>
-               </li>
+               </li> -->
             </ul>
          </div>
       </section>
@@ -166,5 +167,59 @@
          </ul>
       </div>
    </footer>
+   <div class="modal modal_order">
+      <div class="modal__main">
+         <div class="order">
+            <h2 class="order__title">Корзина<sup class="text-red order__count">(2)</sup></h2>
+            <ul class="order__list">
+               <li class="order__item">
+                  <img class="order__img" src="images/make-your-own.jpg" alt="coktail">
+                  <div class="order__info">
+                     <h3 class="order__name">Манго смузи</h3>
+                     <ul class="order__info-list">
+                        <li class="order__info-item">300мл</li>
+                        <li class="order__info-item">Биоразлагаемый стакан</li>
+                        <li class="order__info-item">Лед</li>
+                        <li class="order__info-item">Мята</li>
+                     </ul>
+                  </div>
+                  <button class="oreder__item-delete" aria-label="Delete coktail from bascket"></button>
+                  <p class="order__item-price">380&nbsp;₽</p>
+               </li>
+               <li class="order__item">
+                  <img class="order__img" src="images/make-your-own.jpg" alt="coktail">
+                  <div class="order__info">
+                     <h3 class="order__name">Манго смузи Манго смузи</h3>
+                     <ul class="order__info-list">
+                        <li class="order__info-item">300мл</li>
+                        <li class="order__info-item">Биоразлагаемый стакан</li>
+                     </ul>
+                  </div>
+                  <button class="oreder__item-delete" aria-label="Delete coktail from bascket"></button>
+                  <p class="order__item-price">580&nbsp;₽</p>
+               </li>
+            </ul>
+            <div class="order__price">
+               <p class="order__price-title">Итого:</p>
+               <p class="order__total-price text-red">950&nbsp;₽</p>
+            </div>
+            <form action="" class="order__form">
+               <label for="fname" class="order__label">
+                  <input class="order__input" id="fname" type="text" placeholder="Ваше имя">
+               </label>
+               <label for="fphone" class="order__label">
+                  <input class="order__input" id="fphone" type="text" placeholder="Телефон">
+               </label>
+               <button class="order__button order__button_order btn">Заказать</button>
+            </form>
+         </div>
+      </div>
+   </div>
+
+   <div class="modal modal_2">
+      <div class="modal__main">
+         text
+      </div>
+   </div>
 </body>
 </html>
