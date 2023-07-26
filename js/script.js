@@ -25,6 +25,28 @@ const createCard = item => {
    return coktail;
 };
 
+const scrollService = {
+   scrollPosition: 0,
+   disableScroll() {
+      document.documentElement.style.scrollBehavior = 'auto';
+      this.scrollPosition = window.scrollY;
+      document.body.style.cssText = `
+         overflo: hidden;
+         position: fixed;
+         top: -${this.scrollPosition}px;
+         left: 0;
+         width: 100vw;
+         height: 100vh;
+         padding-right:${window.innerWidth - document.body.offsetWidth}px;
+      `;
+   },
+   enableScroll() {
+      document.body.style.cssText = ``;
+      window.scroll({top: this.scrollPosition});
+      document.documentElement.style.scrollBehavior = '';
+   }
+};
+
 
 const modalController = ({modal, btnOpen, time=300}) => {
    const buttonElem = document.querySelector(btnOpen);
@@ -43,12 +65,14 @@ const modalController = ({modal, btnOpen, time=300}) => {
          modalElem.style.opacity = '0';
          setTimeout(() => {
             modalElem.style.visibility = 'hidden';
+            scrollService.enableScroll();
          }, time);
          window.removeEventListener('keydown', closeModal);
       };
    };
 
    const openModal = () => {
+      scrollService.disableScroll();
       modalElem.style.visibility = 'visible';
       modalElem.style.opacity = '1';
       window.addEventListener('keydown', closeModal);
@@ -61,7 +85,15 @@ const modalController = ({modal, btnOpen, time=300}) => {
 };
 
 const init = async () => {
-   modalController({modal: '.modal_order', btnOpen: '.header_btn-order'});
+   modalController({
+      modal: '.modal_order',
+      btnOpen: '.header_btn-order',
+   });
+   modalController({
+      modal: ".modal_make",
+      btnOpen: '.coktail__btn',
+   });
+
    const goodsListElem = document.querySelector('.goods__list');
    const data = await getData();
 
