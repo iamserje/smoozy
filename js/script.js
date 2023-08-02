@@ -199,7 +199,7 @@ const calculateOun = () => {
          make_Btn.disabled = false;
       } else {
          make_Btn.disabled = true;
-      }
+      };
       makeInputPrice.value = totalPrice;
       makeTotalPrise.textContent = `${totalPrice} ₽`;
    };
@@ -213,9 +213,8 @@ const calculateOun = () => {
    const resetForm = () => {
       makeTotalPrise.textContent = '';
       make_Btn.disabled = true;
-
       formMakeOne.reset();
-   }
+   };
    return {resetForm};
 };
 
@@ -238,7 +237,7 @@ const calculateAdd = () => {
 
    formMakeAdd.addEventListener('change', handlerChange);
    formControl(formMakeAdd, () => {
-      modalAdd.closest('close');
+      modalAdd.closeModal('close');
    })
 
    const filInForm = data => {
@@ -261,12 +260,84 @@ const calculateAdd = () => {
    }
 
    return {filInForm, resetForm};
+};
+
+const createCartItem = (item) => {
+   const li = document.createElement('li');
+   li.classList.add('order__item');
+   li.innerHTML = `
+      <img class="order__img" src="images/make-your-own.jpg" alt="coktail">
+      <div class="order__info">
+         <h3 class="order__name">${item.title}</h3>
+         <ul class="order__info-list">
+            <li class="order__info-item">${item.size}</li>
+            <li class="order__info-item">${item.cups}</li>
+            ${
+               item.toppings
+               ? (Array.isArray(item.toppings)
+                  ? item.toppings.map((topping) => `<li class="order__info-item">${topping}</li>`)
+                  : `<li class="order__info-item">${item.toppings}</li>`)
+               : ""
+            }
+         </ul>
+      </div>
+      <button class="oreder__item-delete" data-idls="${item.idls}" aria-label="Delete coktail from bascket"></button>
+      <p class="order__item-price">${item.price}&nbsp;₽</p>
+   `;
+
+   return li;
 }
+
+const renderCart = () => {
+   const modalOrder = document.querySelector('.modal_order');
+   const orderCount = modalOrder.querySelector('.order__count');
+   const orderList = modalOrder.querySelector('.order__list');
+   const orderTotalPrice = modalOrder.querySelector('.order__total-price');
+   const orderForm = modalOrder.querySelector('.order__form');
+
+   const orderListData = cartDataControl.getLocalStorage();
+
+   orderList.textContent = '';
+   orderCount.textContent = `(${orderListData.length})`;
+
+   orderListData.forEach(item => {
+      orderList.append(createCartItem(item));
+   });
+   orderTotalPrice.textContent = `${orderListData.reduce(
+      (acc, item) => acc + +item.price, 0)} ₽`;
+
+      orderForm.addEventListener('submit', async (e) => {
+         e.preventDefault();
+         if (!orderListData.length) {
+            alert("Basket is Empty");
+            orderForm.reset();
+            modalOrder.closeModal("close");
+            return;
+         }
+         const data = getFormData(orderForm);
+         const response = await fetch(`${API_URL}api/order`, {
+            method: 'POST',
+            body: JSON.stringify({
+               ...data,
+               products: orderListData,
+            }),
+            headers: {
+               "Content-Type": 'application/json'
+            }
+         });
+         const {message} = await response.json();
+         alert(message);
+         cartDataControl.clearLocalStorage();
+         orderForm.reset();
+         modalOrder.closeModal("close");
+      });
+};
 
 const init = async () => {
    modalController({
       modal: '.modal_order',
       btnOpen: '.header_btn-order',
+      open: renderCart,
    });
 
    const {resetForm: resetFormOun} = calculateOun();
@@ -299,9 +370,8 @@ const init = async () => {
          const item =data.find(item => item.id.toString() === id);
          filInForm(item);
       },
-      closw: resetForm,
+      close: resetForm,
    });
-
 };
 
 init();

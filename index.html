@@ -12,6 +12,7 @@
 </head>
 <body>
    <header class="header">
+      <h1 class="visualy-hidden">Coctails and</h1>
       <div class="container header__container">
          <img class="header__logo" src="images/logo.svg" alt="logo">
          <div class="header__btns">
@@ -26,7 +27,7 @@
    </header>
    <main class="main">
       <section class="hero">
-         <div class="container">
+         <div class="container hero__container">
             <h2 class="hero__title">Выбери свой <span class="text-red">освежающий</span> фреш</h2>
             <div class="hero__cups">
                <div class="hero__cup hero__cup_pink">
@@ -38,6 +39,14 @@
                <div class="hero__cup hero__cup_green">
                   <img class="hero__img" src="images/orange_cup.png" alt="bej_cup">
                </div>
+            </div>
+            <div class="decor">
+               <div class="decor__img decor__img_01"></div>
+               <div class="decor__img decor__img_02"></div>
+               <div class="decor__img decor__img_03"></div>
+               <div class="decor__img decor__img_04"></div>
+               <div class="decor__img decor__img_05"></div>
+               <div class="decor__img decor__img_06"></div>
             </div>
          </div>
       </section>
@@ -172,7 +181,7 @@
          <div class="order">
             <h2 class="order__title">Корзина<sup class="text-red order__count">(2)</sup></h2>
             <ul class="order__list">
-               <li class="order__item">
+               <!-- <li class="order__item">
                   <img class="order__img" src="images/make-your-own.jpg" alt="coktail">
                   <div class="order__info">
                      <h3 class="order__name">Манго смузи</h3>
@@ -197,7 +206,7 @@
                   </div>
                   <button class="oreder__item-delete" aria-label="Delete coktail from bascket"></button>
                   <p class="order__item-price">580&nbsp;₽</p>
-               </li>
+               </li> -->
             </ul>
             <div class="order__price">
                <p class="order__price-title">Итого:</p>
@@ -205,10 +214,10 @@
             </div>
             <form action="" class="order__form">
                <label for="fname" class="order__label">
-                  <input class="order__input" id="fname" type="text" placeholder="Ваше имя">
+                  <input class="order__input" id="fname" type="text" required name="name" placeholder="Ваше имя">
                </label>
                <label for="fphone" class="order__label">
-                  <input class="order__input" id="fphone" type="text" placeholder="Телефон">
+                  <input class="order__input" id="fphone" type="text" required name="phone" placeholder="Телефон">
                </label>
                <button class="order__button order__button_order btn">Заказать</button>
             </form>
@@ -279,6 +288,7 @@
                   <div class="make__total">
                      <input class="make__input make__input_price" type="hidden" name="price" value="150">
                      <p class="make__total-prise text-red">150&nbsp;₽</p>
+                     <input class="make__input make__input_size" type="hidden" name="size" value="300">
                      <p class="make__total-size">300мл</p>
                   </div>
                </div>
